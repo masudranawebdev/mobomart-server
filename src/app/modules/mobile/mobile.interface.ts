@@ -14,6 +14,14 @@ export type IMobile = {
 
 export type MobileModel = Model<IMobile, Record<string, unknown>>;
 
-export type IPostFilterablefield = {
+export type IMobileFilterablefield = {
   searchTerm?: string;
+  brand?: string;
+  price?: number;
+  os?: string;
+  memory?: string;
+  processor?: string;
+  status?: string;
+  minPrice?: string;
+  maxPrice?: string;
 };

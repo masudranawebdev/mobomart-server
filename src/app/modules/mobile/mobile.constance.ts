@@ -6,5 +6,7 @@ export const mobileFilterableField = [
   'memory',
   'processor',
   'status',
+  'minPrice',
+  'maxPrice',
 ];
 export const mobileSearchableField = ['title', 'brand'];

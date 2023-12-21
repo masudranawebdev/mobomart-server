@@ -2,7 +2,7 @@ import { SortOrder } from 'mongoose';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interface/common';
 import { IPaginationOptions } from '../../../interface/paginationOption';
-import { IMobile, IPostFilterablefield } from './mobile.interface';
+import { IMobile, IMobileFilterablefield } from './mobile.interface';
 import { mobileSearchableField } from './mobile.constance';
 import { Mobile } from './mobile.model';
 
@@ -12,10 +12,10 @@ const insertIntoDB = async (data: IMobile): Promise<IMobile> => {
 };
 
 const getAllData = async (
-  filters: IPostFilterablefield,
+  filters: IMobileFilterablefield,
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IMobile[]>> => {
-  const { searchTerm, ...filtersData } = filters;
+  const { searchTerm, minPrice, maxPrice, ...filtersData } = filters;
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
 
@@ -39,14 +39,28 @@ const getAllData = async (
     });
   }
 
+  if (minPrice !== undefined) {
+    andCondition.push({
+      price: {
+        $gte: Number(minPrice),
+      },
+    });
+  }
+
+  if (maxPrice !== undefined) {
+    andCondition.push({
+      price: {
+        $lte: Number(maxPrice),
+      },
+    });
+  }
+
   const sortCondition: { [key: string]: SortOrder } = {};
 
   if (sortBy && sortOrder) {
     if (sortBy === 'price') {
-      // Sorting by price
       sortCondition[sortBy] = sortOrder === 'asc' ? 1 : -1;
     } else {
-      // Add other fields for sorting as needed
       sortCondition[sortBy] = sortOrder;
     }
   }
