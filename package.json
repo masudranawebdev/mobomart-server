@@ -1,5 +1,5 @@
 {
-  "name": "packnshift-server",
+  "name": "mobomart-server",
   "version": "1.0.0",
   "description": "This is first backend mid level project setup in my life",
   "main": "src/server.ts",

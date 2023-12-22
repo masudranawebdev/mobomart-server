@@ -8,5 +8,9 @@ exports.mobileFilterableField = [
     'os',
     'memory',
     'processor',
+    'status',
+    'minPrice',
+    'maxPrice',
+    'type',
 ];
 exports.mobileSearchableField = ['title', 'brand'];

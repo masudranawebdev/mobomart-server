@@ -20,7 +20,7 @@ const insertIntoDB = async (data) => {
     return result;
 };
 const getAllData = async (filters, paginationOptions) => {
-    const { searchTerm } = filters, filtersData = __rest(filters, ["searchTerm"]);
+    const { searchTerm, minPrice, maxPrice } = filters, filtersData = __rest(filters, ["searchTerm", "minPrice", "maxPrice"]);
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelpers.calculatePagination(paginationOptions);
     const andCondition = [];
     if (searchTerm) {
@@ -40,14 +40,26 @@ const getAllData = async (filters, paginationOptions) => {
             })),
         });
     }
+    if (minPrice !== undefined) {
+        andCondition.push({
+            price: {
+                $gte: Number(minPrice),
+            },
+        });
+    }
+    if (maxPrice !== undefined) {
+        andCondition.push({
+            price: {
+                $lte: Number(maxPrice),
+            },
+        });
+    }
     const sortCondition = {};
     if (sortBy && sortOrder) {
         if (sortBy === 'price') {
-            // Sorting by price
             sortCondition[sortBy] = sortOrder === 'asc' ? 1 : -1;
         }
         else {
-            // Add other fields for sorting as needed
             sortCondition[sortBy] = sortOrder;
         }
     }

@@ -2,6 +2,7 @@ import { Model } from 'mongoose';
 
 export type IMobile = {
   title: string;
+  type: string;
   brand: string;
   price: number;
   processor: string;
@@ -24,4 +25,5 @@ export type IMobileFilterablefield = {
   status?: string;
   minPrice?: string;
   maxPrice?: string;
+  type?: string;
 };

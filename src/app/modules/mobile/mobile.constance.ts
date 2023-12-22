@@ -8,5 +8,6 @@ export const mobileFilterableField = [
   'status',
   'minPrice',
   'maxPrice',
+  'type',
 ];
 export const mobileSearchableField = ['title', 'brand'];
